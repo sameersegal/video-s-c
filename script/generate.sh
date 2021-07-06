@@ -4,6 +4,9 @@ template=$1
 library=$2
 staging=$3
 
+final="${template##*/}"
+final="${final%.*}.mp4"
+
 #keywords - rest
 
 parse_template() {
@@ -66,7 +69,7 @@ concatenate() {
         [[ $count != 0 ]] && input="$input|$video"
         ((++count))
     done
-    ffmpeg -hide_banner -y -i "$input" -c:a aac -c:v libx264 -crf 23 final.mp4
+    ffmpeg -hide_banner -y -i "$input" -c:a aac -c:v libx264 -crf 23 "$staging/$final"
     # ffplay -hide_banner -i "$input"
 }
 
@@ -87,4 +90,4 @@ concatenate() {
 # create_rest_video "$staging/rest-3-barbell-squats.ts" 3 "Barbell Squats"
 # create_step_video "$staging/barbell-squats-3-deep.ts" 120 "$library/barbell-squats/deep.mp4"
 # parse_template $template
-concatenate
+# concatenate
