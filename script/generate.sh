@@ -118,18 +118,28 @@ main() {
 
     for step in "${PARAMS[@]}"; do
         eval "$(unstringify row "$step")"
-        echo "${row[0]} || ${row[1]} || ${row[2]}"
-        # check if file "{name}.ts" exists
-        # is type == rest
-            # call rest-video
-        # else
-            # call step-video
+        type=${row[0]}
+        path=${row[1]}
+        duration=${row[2]}
+        arg1=${row[3]}
 
-        # append file name to concat list
+        if [ -f $path ]
+        then
+            echo "$path exists already. skipping creation"
+        else                
+            if [ $type = "rest" ]
+            then
+                create_rest_video $path $duration $arg1
+            else
+                create_step_video $path $duration $arg1
+            fi        
+        fi
+        
+        VIDEOS+=($path)
 
     done
 
-    # concatenate
+    concatenate
 }
 
 # create_rest_video "$staging/rest-3-barbell-squats.ts" 3 "Barbell Squats"
