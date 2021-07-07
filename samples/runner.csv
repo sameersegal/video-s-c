@@ -1,5 +1,5 @@
 type,duration
-warmup,
+warmup,X
 rest,30
 barbell-squats,120
 rest,15
@@ -19,4 +19,4 @@ lunges,45
 rest,15
 lunges,45
 rest,15
-cooldown,
+cooldown,X
